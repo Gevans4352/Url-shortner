@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const sequelize = require("./database");
-const ShortUrl = require("./Models/ShortUrl");
+const ShortUrl = require("./Models/shortUrl");
 const app = express();
 app.use(cors());
 app.use(express.json());
