@@ -117,33 +117,3 @@ PORT=5000
 BASE_URL=http://localhost:5000
 DATABASE_PATH=./database.sqlite
 ```
-
-#### Contributing
-
-Contributions are welcome.
-
-Steps to contribute:
-1. Fork the repository, click the fork button on GitHub.
-
-2. Create a feature branch
-
-```bash 
-git checkout -b feature-name
-```
-
-4. Commit your changes
-
-```bash 
-git commit -m "Add feature"
-```
-
-6. Push your branch
-
-```bash
-git push origin feature-name
-```
-
-8. Open a Pull Request
-   
-#### License
-This project is licensed under the MIT License.
