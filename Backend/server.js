@@ -25,6 +25,11 @@ app.post("/shortUrls", async (req, res) => {
   }
 });
 
+app.delete("/shortUrls", async (req, res) => {
+  await ShortUrl.destroy({ where: {} });
+  res.json({ success: true });
+});
+
 app.get("/:shortUrl", async (req, res) => {
   try {
     const shortUrl = await ShortUrl.findOne({
