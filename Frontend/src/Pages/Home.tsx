@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { useDocumentTitle } from "../Hooks/useDocumentTitle"; 
+import { useEffect, useRef, useState } from "react";
+import { useDocumentTitle } from "../Hooks/useDocumentTitle";
 
 const Home = () => {
   type ShortUrlType = {
@@ -11,7 +11,7 @@ const Home = () => {
   const [shortUrls, setShortUrls] = useState<ShortUrlType[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   useDocumentTitle("Home");
-  
+
   const fetchUrls = () => {
     fetch(`${API}/shortUrls`)
       .then((res) => res.json())
@@ -38,12 +38,12 @@ const Home = () => {
   return (
     <div className="container">
       <h1>URL Shortener</h1>
-
-      <form onSubmit={createShortUrl}>
+      <form className="HomeForm" onSubmit={createShortUrl}>
         <label className="notstyled">
           Full URL
           <br />
           <input
+            className="HomeInput"
             ref={inputRef}
             type="url"
             name="FullURL"
@@ -51,10 +51,10 @@ const Home = () => {
             required
           />
         </label>
-
-        <button type="submit">Submit</button>
+        <button className="HomeSubmit" type="submit">
+          Submit
+        </button>
       </form>
-
       <div className="table-grid">
         <div className="grid-header">Full URL</div>
         <div className="grid-header">Short URL</div>
@@ -84,7 +84,3 @@ const Home = () => {
 };
 
 export default Home;
-function useEffect(arg0: () => void, arg1: never[]) {
-  throw new Error("Function not implemented.");
-}
-

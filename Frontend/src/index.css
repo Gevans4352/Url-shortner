@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -5,10 +6,321 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background: linear-gradient(135deg, #ea66c7 0%, #a24b8e 100%);
   min-height: 100vh;
   padding: 2rem 1rem;
+}
+
+.LoginForm {
+  background: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  padding: 2.2rem;
+  border-radius: 16px;
+  box-shadow: 0 12px 35px rgba(233, 30, 140, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.LoginTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #d63384;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  align-self: center;
+}
+
+.RegisterTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #d63384;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  align-self: center;
+}
+
+.resetEmailsvg {
+  color: #e91e8c;
+  font-size: 1.2rem;
+}
+
+.littlerature {
+  color: #f48fb1;
+  text-align: center;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.aTinyMessage {
+  text-align: center;
+  color: #ad7f8a;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0.2rem 0 1rem;
+}
+
+.reset {
+  margin-top: 50px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+.resetEmail {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 1rem;
+  background: transparent;
+  color: #333;
+}
+
+.resetEmail::placeholder {
+  color: #f48fb1;
+}
+
+.resetButton {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f06292, #e91e8c);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.resetButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(233, 30, 140, 0.25);
+}
+
+.toRemember {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #ad7f8a;
+  margin-top: 1rem;
+}
+
+.toRemember a {
+  color: #e91e8c;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.toRemember a:hover {
+  text-decoration: underline;
+}
+
+.error-text {
+  color: #e91e8c;
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+}
+
+.EnterLogin {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: 2px solid #f48fb1;
+  background: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.EnterLogin:focus {
+  border-color: #e91e8c;
+  box-shadow: 0 0 0 4px rgba(233, 30, 140, 0.15);
+}
+
+.TheDivWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.password-row {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.submission {
+  width: 100%;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f06292, #e91e8c);
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.submission:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(233, 30, 140, 0.25);
+}
+.usernameInput {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1.5px solid #f48fb1;
+  background: white;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  position: relative;
+}
+
+.usernameInputsvg {
+  color: #e91e8c;
+  font-size: 1.2rem;
+}
+
+.RegisterUserInput {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 1rem;
+  background: transparent;
+}
+
+.RegisterUserInput::placeholder {
+  color: #f48fb1;
+}
+
+.resetInput {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1.5px solid #f48fb1;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  background: white;
+}
+
+.password {
+  background: none;
+  border: none;
+  color: #e91e8c;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.passwordInputation {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: 1.5px solid #f48fb1;
+  background: white;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  position: relative;
+}
+
+.passwordInputation svg {
+  color: #e91e8c;
+  font-size: 1.2rem;
+}
+
+.passwordInputation input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 1rem;
+  background: transparent;
+}
+
+.passwordInputation input::placeholder {
+  color: #f48fb1;
+}
+
+.TheDivWrapper input {
+  width: 100%;
+  padding: 0.9rem 2.5rem 0.9rem 1rem;
+  border-radius: 12px;
+  border: 2px solid #f48fb1;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.TheDivWrapper input:focus {
+  border-color: #e91e8c;
+  box-shadow: 0 0 0 4px rgba(233, 30, 140, 0.15);
+}
+
+.Passkey {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #f06292;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Passkey:hover {
+  color: #e91e8c;
+}
+
+a[forgot-password-link] {
+  font-size: 0.85rem;
+  color: #f48fb1;
+  text-align: right;
+  display: block;
+  margin-top: -0.3rem;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+a[forgot-password-link]:hover {
+  text-decoration: underline;
+  color: #e91e8c;
+}
+
+.NavigateLogin {
+  margin-top: 0.5rem;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f06292, #e91e8c);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.NavigateLogin:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(233, 30, 140, 0.25);
+}
+
+.NavigateLogin:active {
+  transform: translateY(0);
 }
 .not-found {
   display: flex;
@@ -47,12 +359,12 @@ body {
 h1 {
   text-align: center;
   color: white;
-  font-size: 2.3rem; 
-  margin-bottom: 1.8rem; 
+  font-size: 2.3rem;
+  margin-bottom: 1.8rem;
   font-weight: 700;
 }
 
-form {
+.HomeForm {
   background: white;
   padding: 2rem;
   border-radius: 18px;
@@ -61,7 +373,26 @@ form {
 
   display: flex;
   flex-direction: column;
-  gap: 0.8rem; 
+  gap: 0.8rem;
+}
+
+.LoginForm {
+  background: white;
+  padding: 2rem;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+}
+
+.LoginTitle {
+  display: flex;
+  align-content: center;
+  align-items: center;
 }
 
 .notstyled {
@@ -72,22 +403,22 @@ form {
   display: block;
 }
 
-input {
+.HomeInput {
   width: 100%;
-  padding: 0.9rem 1rem; 
+  padding: 0.9rem 1rem;
   border: 2px solid #e0e0e0;
   border-radius: 10px;
   font-size: 1rem;
   transition: all 0.2s ease;
 }
 
-input:focus {
+.HomeInput:focus {
   outline: none;
   border-color: #ea66bc;
   box-shadow: 0 0 0 4px rgba(234, 102, 188, 0.15);
 }
 
-button {
+.HomeSubmit {
   width: 100%;
   background: linear-gradient(135deg, #ea66ba 0%, #a24b88 100%);
   color: white;
@@ -97,15 +428,17 @@ button {
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 
-button:hover {
+.HomeSubmit:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(162, 75, 136, 0.25);
 }
 
-button:active {
+.HomeSubmit:active {
   transform: translateY(0);
 }
 
@@ -116,7 +449,7 @@ button:active {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
   max-height: 400px;
   display: grid;
-  grid-template-columns: 1.5fr 1fr 80px; 
+  grid-template-columns: 1.5fr 1fr 80px;
 }
 
 .grid-header {

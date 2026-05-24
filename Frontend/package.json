@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "proxy": "http://localhost:5000",
-  "homepage": "https://Gevans4352.github.io/Url-shortner", 
+  "homepage": "https://Gevans4352.github.io/Url-shortner",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -16,6 +16,7 @@
   "dependencies": {
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "react-icons": "^5.6.0",
     "react-router-dom": "^7.15.1"
   },
   "devDependencies": {
