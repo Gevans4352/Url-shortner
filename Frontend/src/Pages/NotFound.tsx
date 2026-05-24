@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useDocumentTitle } from "../Hooks/useDocumentTitle"; 
 const NotFound = () => {
-  useEffect(() => {
-    document.title = "Not Found";
-  }, []);
+  useDocumentTitle("Not Found");
   return (
     <div className="not-found">
       <h1>404</h1>

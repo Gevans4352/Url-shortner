@@ -44,7 +44,6 @@ body {
   padding: 1rem;
 }
 
-/* Heading */
 h1 {
   text-align: center;
   color: white;
@@ -53,7 +52,6 @@ h1 {
   font-weight: 700;
 }
 
-/* Form */
 form {
   background: white;
   padding: 2rem;
@@ -66,7 +64,6 @@ form {
   gap: 0.8rem; 
 }
 
-/* Label ONLY */
 .notstyled {
   color: #a24b8e;
   font-size: 1rem;
@@ -75,7 +72,6 @@ form {
   display: block;
 }
 
-/* Input */
 input {
   width: 100%;
   padding: 0.9rem 1rem; 
@@ -91,7 +87,6 @@ input:focus {
   box-shadow: 0 0 0 4px rgba(234, 102, 188, 0.15);
 }
 
-/* Button */
 button {
   width: 100%;
   background: linear-gradient(135deg, #ea66ba 0%, #a24b88 100%);
@@ -114,18 +109,16 @@ button:active {
   transform: translateY(0);
 }
 
-/* Table Grid */
 .table-grid {
   background: white;
   border-radius: 18px;
-  overflow: hidden;
+  overflow: auto;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-
+  max-height: 400px;
   display: grid;
   grid-template-columns: 1.5fr 1fr 80px; 
 }
 
-/* Table Headers */
 .grid-header {
   background: #f7f7f7;
   padding: 1rem;
@@ -139,7 +132,6 @@ button:active {
   border-right: 1px solid #e0e0e0;
 }
 
-/* Table Cells */
 .grid-cell {
   padding: 1rem;
   border-bottom: 1px solid #f0f0f0;
@@ -175,60 +167,23 @@ button:active {
   white-space: nowrap;
   border: 0;
 }
-
-/* Tablet */
-@media (max-width: 768px) {
-  .container {
-    width: 95%; 
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  form {
-    padding: 1.5rem;
-  }
-
-  .table-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .grid-header {
-    display: none;
-  }
-
-  .grid-cell {
-    border-right: none !important;
-  }
+.table-grid::-webkit-scrollbar {
+  width: 4px;
+  height: 6px;
 }
 
-/* Mobile */
-@media (max-width: 480px) {
-  body {
-    padding: 1rem;
-  }
+.table-grid::-webkit-scrollbar-track {
+  background: #f7f7f7;
+  border-radius: 10px;
+}
 
-  .container {
-    width: 100%;
-  }
+.table-grid::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #ea66ba, #a24b88);
+  border-radius: 10px;
+}
 
-  h1 {
-    font-size: 1.7rem;
-  }
-
-  form {
-    padding: 1rem;
-    border-radius: 14px;
-  }
-
-  input,
-  button {
-    font-size: 0.95rem;
-  }
-
-  .grid-cell {
-    padding: 0.85rem;
-    font-size: 0.9rem;
+@media (max-width: 600px) {
+  .table-grid {
+    overflow-x: auto;
   }
 }
