@@ -20,9 +20,35 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   useDocumentTitle("Register");
   const [errors, setErrors] = useState<Errors>({});
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const userData = {
+      name,
+      email,
+      password,
+    };
+
+    try {
+      const response = await fetch("http://localhost:5000/api/users/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: name, email, password }), 
+      });
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        navigate("/Login");
+      } else {
+        setErrors({ email: data.message });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
     const newErrors: Errors = {};
+    
     if (email.trim().length === 0) {
       newErrors.email = "Email address is required.";
     }
@@ -116,6 +142,7 @@ const Register = () => {
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
                 value={password}
+                name="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button
@@ -123,13 +150,11 @@ const Register = () => {
                 id="showPasswd"
                 className="password"
                 onClick={() => setShowPassword(!showPassword)}
-                >
+              >
                 {showPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
               </button>
             </div>
-                  {errors.password && (
-                    <p className="error-text">{errors.password}</p>
-                  )}
+            {errors.password && <p className="error-text">{errors.password}</p>}
             <button className="submission" type="submit">
               Register
             </button>

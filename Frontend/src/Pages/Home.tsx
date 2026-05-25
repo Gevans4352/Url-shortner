@@ -13,8 +13,16 @@ const Home = () => {
   useDocumentTitle("Home");
 
   const fetchUrls = () => {
-    fetch(`${API}/shortUrls`)
-      .then((res) => res.json())
+    const token = localStorage.getItem("token"); 
+    fetch(`${API}/shortUrls`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch");
+        return res.json();
+      })
       .then((data) => setShortUrls(data))
       .catch((err) => console.error(err));
   };
@@ -25,10 +33,14 @@ const Home = () => {
 
   async function createShortUrl(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const token = localStorage.getItem("token"); 
     if (!inputRef.current?.value) return;
     await fetch(`${API}/shortUrls`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+       },
       body: JSON.stringify({ fullUrl: inputRef.current.value }),
     });
     inputRef.current.value = "";

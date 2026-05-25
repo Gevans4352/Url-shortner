@@ -2,8 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDocumentTitle } from "../Hooks/useDocumentTitle";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useState } from "react";
+import axios from "axios";
 
-const Login = () => {
+type LoginProps = {
+  setUser: React.Dispatch<React.SetStateAction<any>>;
+};
+
+const Login = ({ setUser }: LoginProps) => {
   type Errors = {
     email?: string;
     password?: string;
@@ -16,6 +21,7 @@ const Login = () => {
   const [errors, setErrors] = useState<Errors>({});
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const newErrors: Errors = {};
 
     if (email === "") {
@@ -38,7 +44,20 @@ const Login = () => {
 
     if (Object.keys(newErrors).length > 0) return;
 
-    navigate("/");
+    try {
+      const res = await axios.post("/api/users/login", {
+        email,
+        password,
+      });
+      localStorage.setItem("token", res.data.token);
+      setUser(res.data);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+      setErrors({
+        password: "Invalid email or password",
+      });
+    }
   };
   return (
     <div className="login">
@@ -56,6 +75,7 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 name="email"
                 required
+                autoComplete="off"
               />
               {errors.email && <p className="error-text">{errors.email}</p>}
             </div>
@@ -78,7 +98,7 @@ const Login = () => {
               </div>
             </div>
             {errors.password && <p className="error-text">{errors.password}</p>}
-            <Link to="/reset" forgot-password-link>
+            <Link to="/reset" className="forgot-password-link">
               Forgot Password?
             </Link>
             <button className="NavigateLogin" type="submit">
