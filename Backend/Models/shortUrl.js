@@ -16,6 +16,10 @@ const ShortUrl = sequelize.define("ShortUrl", {
   clicks: {
     type: DataTypes.INTEGER,
     defaultValue: 0
+  },
+   userId: {
+    type: DataTypes.INTEGER,
+    allowNull: false  // every URL MUST belong to someone
   }
 });
 
