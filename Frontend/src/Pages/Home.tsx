@@ -7,7 +7,7 @@ const Home = () => {
     short: string;
     clicks: number;
   };
-  const API = "https://url-shortner-c1kw.onrender.com";
+  const API = "http://localhost:5000";
   const [shortUrls, setShortUrls] = useState<ShortUrlType[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   useDocumentTitle("Home");
