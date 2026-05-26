@@ -34,11 +34,12 @@ const Register = () => {
       const response = await fetch("http://localhost:5000/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: name, email, password }), 
+        body: JSON.stringify({ username: name, email, password }),
       });
       const data = await response.json();
       console.log(data);
       if (response.ok) {
+        localStorage.setItem("token", data.token);
         navigate("/Login");
       } else {
         setErrors({ email: data.message });
@@ -48,7 +49,7 @@ const Register = () => {
     }
 
     const newErrors: Errors = {};
-    
+
     if (email.trim().length === 0) {
       newErrors.email = "Email address is required.";
     }
