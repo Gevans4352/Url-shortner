@@ -3,6 +3,9 @@ const User = require("../Models/User");
 const protect = require("../Middleware/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { Resend } = require("resend");
+const crypto = require("crypto");
+const resend = new Resend(process.env.RESEND_API_KEY || "");
 
 const router = express.Router();
 //register
@@ -11,17 +14,17 @@ const router = express.Router();
 router.get("/debug-user/:email", async (req, res) => {
   const user = await User.findOne({ where: { email: req.params.email } });
   if (!user) return res.status(404).json({ message: "User not found" });
-  
+
   res.json({
     email: user.email,
-    passwordHash: user.password,  // see if it's hashed or plain text
+    passwordHash: user.password, // see if it's hashed or plain text
     passwordLength: user.password.length,
-    startsWithBcrypt: user.password.startsWith('$2'),
+    startsWithBcrypt: user.password.startsWith("$2"),
   });
 });
 
 router.get("/debug-all-users", async (req, res) => {
-  const users = await User.findAll({ attributes: ['id', 'email', 'username'] });
+  const users = await User.findAll({ attributes: ["id", "email", "username"] });
   res.json({ count: users.length, users });
 });
 
@@ -115,5 +118,54 @@ const generateToken = (id) => {
     expiresIn: "30d",
   });
 };
+// Forgot password
+router.post("/forgot-password", async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(404).json({ message: "No account with that email" });
+    }
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    user.resetToken = resetToken;
+    user.resetTokenExpiry = Date.now() + 3600000;
+    await user.save();
+    const resetLink = `http://localhost:5173/Url-shortner/#/restart${resetToken}`;
+    await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: user.email,
+      subject: "Reset your password",
+      html: `<p>Click the link below to reset your password. It expires in 1 hour.</p>
+             <a href="${resetLink}">${resetLink}</a>`,
+    });
+    res.json({ message: "Reset link sent to your email" });
+  } catch (error) {
+    console.error("FORGOT PASSWORD ERROR:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
+// Reset password
+router.post("/reset-password/:token", async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+  try {
+    const user = await User.findOne({
+      where: {
+        resetToken: token,
+      },
+    });
+    if (!user || user.resetTokenExpiry < Date.now()) {
+      return res.status(400).json({ message: "Invalid or expired reset link" });
+    }
+    user.password = password;
+    user.resetToken = null;
+    user.resetTokenExpiry = null;
+    await user.save();
+    res.json({ message: "Password reset successful" });
+  } catch (error) {
+    console.error("RESET PASSWORD ERROR:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 module.exports = router;
