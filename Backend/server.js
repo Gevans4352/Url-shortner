@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const express = require("express");
 const cors = require("cors");
 const sequelize = require("./database");
@@ -5,8 +7,6 @@ const ShortUrl = require("./Models/shortUrl");
 const User = require("./Models/User");
 const authRoutes = require("./Route/auth");
 const protect = require("./Middleware/auth");
-const dotenv = require("dotenv");
-dotenv.config();
 
 const app = express();
 
