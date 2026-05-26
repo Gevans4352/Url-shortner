@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 // Get MY urls only
 app.get("/shortUrls", protect, async (req, res) => {
   try {
-    console.log("=== GET /shortUrls ===");
+    console.log("GET the shortUrls");
     console.log(
       "req.user:",
       req.user ? { id: req.user.id, email: req.user.email } : "NULL",
@@ -37,6 +37,7 @@ app.get("/shortUrls", protect, async (req, res) => {
     });
     res.json(urls);
   } catch (err) {
+    console.error("GET /shortUrls ERROR:", err); // ADD THIS LINE
     res.status(500).json({ error: "Failed to fetch URLs" });
   }
 });
@@ -74,7 +75,7 @@ app.get("/:shortUrl", async (req, res) => {
   }
 });
 
-// ========== START SERVER ==========
+// start the server?
 
 sequelize.sync().then(() => {
   app.listen(process.env.PORT || 5000, () => {
