@@ -2,7 +2,6 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../database");
 const bcrypt = require("bcryptjs");
 
-
 const User = sequelize.define(
   "User",
   {
@@ -20,6 +19,14 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    resetToken: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    resetTokenExpiry: {
+      type: DataTypes.BIGINT,
+      allowNull: true,
+    },
   },
   { timestamps: true },
 );
@@ -30,9 +37,10 @@ User.beforeCreate(async (user) => {
 });
 
 User.beforeUpdate(async (user) => {
-  if (user.changed("password")) { //hashing idk
-  const salt = await bcrypt.genSalt(10); //number of salt grounds for password hashing
-  user.password = await bcrypt.hash(user.password, salt);
+  if (user.changed("password")) {
+    //hashing idk
+    const salt = await bcrypt.genSalt(10); //number of salt grounds for password hashing
+    user.password = await bcrypt.hash(user.password, salt);
   }
 });
 
