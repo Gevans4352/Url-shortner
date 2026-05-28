@@ -130,14 +130,15 @@ router.post("/forgot-password", async (req, res) => {
     user.resetToken = resetToken;
     user.resetTokenExpiry = Date.now() + 3600000;
     await user.save();
-    const resetLink = `http://localhost:5173/Url-shortner/#/restart${resetToken}`;
-    await resend.emails.send({
+    const resetLink = `http://localhost:5173/#/restart/${resetToken}`;
+    const result = await resend.emails.send({
       from: "onboarding@resend.dev",
       to: user.email,
       subject: "Reset your password",
       html: `<p>Click the link below to reset your password. It expires in 1 hour.</p>
              <a href="${resetLink}">${resetLink}</a>`,
     });
+    console.log("RESEND RESULT:", result);
     res.json({ message: "Reset link sent to your email" });
   } catch (error) {
     console.error("FORGOT PASSWORD ERROR:", error);
