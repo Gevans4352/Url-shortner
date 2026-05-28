@@ -2,11 +2,15 @@ import { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { MdLockOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
-const ForgotPassword = () => {
+const ResetPassword = () => {
+  const { token } = useParams();
+  const navigate = useNavigate();
   type Errors = {
     password?: string;
     confirmPassword?: string;
+    server?: string;
   };
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -14,7 +18,7 @@ const ForgotPassword = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [errors, setErrors] = useState<Errors>({});
 
-  const handleReset = (e: React.FormEvent) => {
+  const handleReset = async (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: Errors = {};
     if (password !== confirmPassword) {
@@ -40,6 +44,24 @@ const ForgotPassword = () => {
 
     if (Object.keys(newErrors).length > 0) {
       return;
+    }
+    try {
+      const res = await fetch(
+        `https://url-shortner-c1kw.onrender.com/api/users/reset-password/${token}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password }),
+        },
+      );
+      const data = await res.json();
+      if (res.ok) {
+        navigate("/login");
+      } else {
+        setErrors({ server: data.message });
+      }
+    } catch (error) {
+      setErrors({ server: "Something went wrong. Try again." });
     }
   };
   const hasEightCharacters = password.length >= 8;
@@ -128,7 +150,7 @@ const ForgotPassword = () => {
             </div>
           ))}
         </div>
-
+        {errors.server && <p className="error-text">{errors.server}</p>}
         <button type="submit" className="NavigateLogin">
           Reset Password
         </button>
@@ -145,4 +167,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;
