@@ -24,14 +24,14 @@ const Register = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const userData = {
-      name,
-      email,
-      password,
-    };
+    // const userData = {
+    //   name,
+    //   email,
+    //   password,
+    // };
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/register", {
+      const response = await fetch("https://url-shortner-c1kw.onrender.com/api/users/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: name, email, password }),
