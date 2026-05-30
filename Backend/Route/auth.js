@@ -10,14 +10,13 @@ const resend = new Resend(process.env.RESEND_API_KEY || "");
 const router = express.Router();
 //register
 
-// Temporary debug route - DELETE AFTER USE
 router.get("/debug-user/:email", async (req, res) => {
   const user = await User.findOne({ where: { email: req.params.email } });
   if (!user) return res.status(404).json({ message: "User not found" });
 
   res.json({
     email: user.email,
-    passwordHash: user.password, // see if it's hashed or plain text
+    passwordHash: user.password, 
     passwordLength: user.password.length,
     startsWithBcrypt: user.password.startsWith("$2"),
   });
@@ -118,6 +117,7 @@ const generateToken = (id) => {
     expiresIn: "30d",
   });
 };
+
 // Forgot password
 router.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
@@ -146,7 +146,6 @@ router.post("/forgot-password", async (req, res) => {
   }
 });
 
-// Reset password
 router.post("/reset-password/:token", async (req, res) => {
   const { token } = req.params;
   const { password } = req.body;

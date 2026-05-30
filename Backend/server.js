@@ -14,7 +14,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Define relationships ONCE
 User.hasMany(ShortUrl, { foreignKey: "userId" });
 ShortUrl.belongsTo(User, { foreignKey: "userId" });
 
@@ -24,7 +23,7 @@ app.get("/", (req, res) => {
   res.send("backend running");
 });
 
-// Get MY urls only
+
 app.get("/shortUrls", protect, async (req, res) => {
   try {
     console.log("GET the shortUrls");
@@ -37,15 +36,15 @@ app.get("/shortUrls", protect, async (req, res) => {
     });
     res.json(urls);
   } catch (err) {
-    console.error("GET /shortUrls ERROR:", err); // ADD THIS LINE
+    console.error("GET /shortUrls ERROR:", err); 
     res.status(500).json({ error: "Failed to fetch URLs" });
   }
 });
 
-// Create a URL (logged in users only)
+
 app.post("/shortUrls", protect, async (req, res) => {
   try {
-    console.log("=== POST /shortUrls ===");
+    console.log("POST /shortUrls");
     console.log("req.user:", req.user ? { id: req.user.id } : "NULL");
     console.log("body:", req.body);
     const url = await ShortUrl.create({
@@ -58,7 +57,6 @@ app.post("/shortUrls", protect, async (req, res) => {
   }
 });
 
-// Redirect short link to original URL
 app.get("/:shortUrl", async (req, res) => {
   try {
     const shortUrl = await ShortUrl.findOne({
@@ -75,7 +73,6 @@ app.get("/:shortUrl", async (req, res) => {
   }
 });
 
-// start the server?
 
 sequelize.sync().then(() => {
   app.listen(process.env.PORT || 5000, () => {

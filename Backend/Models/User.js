@@ -38,8 +38,7 @@ User.beforeCreate(async (user) => {
 
 User.beforeUpdate(async (user) => {
   if (user.changed("password")) {
-    //hashing idk
-    const salt = await bcrypt.genSalt(10); //number of salt grounds for password hashing
+    const salt = await bcrypt.genSalt(10); 
     user.password = await bcrypt.hash(user.password, salt);
   }
 });
