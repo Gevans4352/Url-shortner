@@ -124,55 +124,5 @@ const generateToken = (id) => {
   });
 };
 
-// Forgot password
-router.post("/forgot-password", async (req, res) => {
-  const { email } = req.body;
-  try {
-    const user = await User.findOne({ where: { email } });
-    if (!user) {
-      return res.status(404).json({ message: "No account with that email" });
-    }
-    const resetToken = crypto.randomBytes(32).toString("hex");
-    user.resetToken = resetToken;
-    user.resetTokenExpiry = Date.now() + 3600000;
-    await user.save();
-    const resetLink = `https://gevans4352.github.io/Url-shortner/#/restart/${resetToken}`;
-    const result = await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: user.email,
-      subject: "Reset your password",
-      html: `<p>Click the link below to reset your password. It expires in 1 hour.</p>
-         <a href="${resetLink}">${resetLink}</a>`,
-    });
-    console.log("RESEND RESULT:", result);
-    res.json({ message: "Reset link sent to your email" });
-  } catch (error) {
-    console.error("FORGOT PASSWORD ERROR:", error);
-    console.error("FULL ERROR:", JSON.stringify(error));
-    res.status(500).json({ message: "Server error" });
-  }
-});
 
-router.post("/reset-password/:token", async (req, res) => {
-  const { token } = req.params;
-  const { password } = req.body;
-  try {
-    const user = await User.findOne({
-      where: {
-        resetToken: token,
-      },
-    });
-    if (!user || user.resetTokenExpiry < Date.now()) {
-      return res.status(400).json({ message: "Invalid or expired reset link" });
-    }
-    user.password = password;
-    user.resetToken = null;
-    user.resetTokenExpiry = null;
-    await user.save();
-    res.json({ message: "Password reset successful" });
-  } catch (error) {
-    console.error("RESET PASSWORD ERROR:", error);
-    res.status(500).json({ message: "Server error" });
-  }
-});
 module.exports = router;
