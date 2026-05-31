@@ -3,9 +3,15 @@ const User = require("../Models/User");
 const protect = require("../Middleware/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const { Resend } = require("resend");
-const crypto = require("crypto");
-const resend = new Resend(process.env.RESEND_API_KEY || "");
+const nodemailer = require("nodemailer");
+const crypto = require("node:crypto");
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
 const router = express.Router();
 //register
@@ -16,7 +22,7 @@ router.get("/debug-user/:email", async (req, res) => {
 
   res.json({
     email: user.email,
-    passwordHash: user.password, 
+    passwordHash: user.password,
     passwordLength: user.password.length,
     startsWithBcrypt: user.password.startsWith("$2"),
   });
@@ -130,13 +136,13 @@ router.post("/forgot-password", async (req, res) => {
     user.resetToken = resetToken;
     user.resetTokenExpiry = Date.now() + 3600000;
     await user.save();
-    const resetLink = `http://localhost:5173/#/restart/${resetToken}`;
-    const result = await resend.emails.send({
-      from: "onboarding@resend.dev",
+    const resetLink = `https://gevans4352.github.io/Url-shortner/#/restart/${resetToken}`;
+    const result = await transporter.sendMail({
+      from: process.env.EMAIL_USER,
       to: user.email,
       subject: "Reset your password",
       html: `<p>Click the link below to reset your password. It expires in 1 hour.</p>
-             <a href="${resetLink}">${resetLink}</a>`,
+         <a href="${resetLink}">${resetLink}</a>`,
     });
     console.log("RESEND RESULT:", result);
     res.json({ message: "Reset link sent to your email" });
