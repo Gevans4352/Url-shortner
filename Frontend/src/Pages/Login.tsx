@@ -98,9 +98,6 @@ const Login = ({ setUser }: LoginProps) => {
               </div>
             </div>
             {errors.password && <p className="error-text">{errors.password}</p>}
-            <Link to="/reset" className="forgot-password-link">
-              Forgot Password?
-            </Link>
             <button className="NavigateLogin" type="submit">
               Sign In
             </button>
