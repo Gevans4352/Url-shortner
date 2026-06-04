@@ -23,6 +23,8 @@
     "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.22.3",
     "nodemailer": "^8.0.10",
+    "pg": "^8.21.0",
+    "pg-hstore": "^2.3.4",
     "resend": "^6.12.4",
     "sequelize": "^6.37.8",
     "shortid": "^2.2.17",
