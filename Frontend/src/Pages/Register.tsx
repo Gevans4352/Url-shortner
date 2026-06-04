@@ -18,7 +18,6 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  useDocumentTitle("Register");
   const [errors, setErrors] = useState<Errors>({});
 
   const handleRegister = async (e: React.FormEvent) => {

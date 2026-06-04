@@ -13,11 +13,14 @@ const App = () => {
       const token = localStorage.getItem("token");
       if (token) {
         try {
-          const res = await axios.get("https://url-shortner-c1kw.onrender.com/api/users/me", {
-            headers: {
-              Authorization: `Bearer ${token}`,
+          const res = await axios.get(
+            "https://url-shortner-c1kw.onrender.com/api/users/me",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
             },
-          });
+          );
           setUser(res.data);
         } catch (error) {
           localStorage.removeItem("token");
@@ -25,6 +28,19 @@ const App = () => {
       }
     };
     fetchUser();
+  }, []);
+  useEffect(() => {
+    const interceptor = axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response?.status === 401) {
+          localStorage.removeItem("token");
+          setUser(null);
+        }
+        return Promise.reject(error);
+      },
+    );
+    return () => axios.interceptors.response.eject(interceptor);
   }, []);
   return (
     <HashRouter>
