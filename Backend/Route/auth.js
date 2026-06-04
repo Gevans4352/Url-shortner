@@ -3,15 +3,7 @@ const User = require("../Models/User");
 const protect = require("../Middleware/auth");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const nodemailer = require("nodemailer");
-const crypto = require("node:crypto");
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
+
 
 const router = express.Router();
 //register
