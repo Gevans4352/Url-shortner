@@ -19,9 +19,11 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<Errors>({});
+  const [loading, setLoading] = useState(false);
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     // const userData = {
     //   name,
@@ -30,11 +32,14 @@ const Register = () => {
     // };
 
     try {
-      const response = await fetch("https://url-shortner-c1kw.onrender.com/api/users/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: name, email, password }),
-      });
+      const response = await fetch(
+        "https://url-shortner-c1kw.onrender.com/api/users/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: name, email, password }),
+        },
+      );
       const data = await response.json();
       console.log(data);
       if (response.ok) {
@@ -45,6 +50,8 @@ const Register = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
 
     const newErrors: Errors = {};
@@ -155,8 +162,8 @@ const Register = () => {
               </button>
             </div>
             {errors.password && <p className="error-text">{errors.password}</p>}
-            <button className="submission" type="submit">
-              Register
+            <button className="submission" type="submit" disabled={loading}>
+              {loading ? "Registering..." : "Register"}
             </button>
             <p>
               Already have an account{" "}
